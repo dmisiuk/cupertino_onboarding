@@ -1,8 +1,7 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 // Package imports:
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/cupertino.dart';
 
 // Estimated from the iPhone Simulator running iOS 15
 final CupertinoDynamicColor _kBackgroundColor =
@@ -52,6 +51,7 @@ class CupertinoOnboarding extends StatefulWidget {
     this.pageTransitionAnimationCurve = Curves.fastEaseInToSlowEaseOut,
     this.scrollPhysics = const BouncingScrollPhysics(),
     this.onPressed,
+    this.onPressedWithPageId,
     this.onPressedOnLastPage,
     super.key,
   }) : assert(
@@ -118,6 +118,9 @@ class CupertinoOnboarding extends StatefulWidget {
   ///
   /// By default, it will navigate to the next page.
   final VoidCallback? onPressed;
+
+  /// Invoked when the user taps on the bottom button with sending Page
+  final Function(Widget)? onPressedWithPageId;
 
   /// Invoked when the user taps on the bottom button on the last page.
   /// Must not be null to be active.
@@ -195,7 +198,14 @@ class _CupertinoOnboardingState extends State<CupertinoOnboarding> {
                       padding: const EdgeInsets.all(16),
                       onPressed: _currentPage == widget.pages.length - 1
                           ? widget.onPressedOnLastPage
-                          : widget.onPressed ?? _animateToNextPage,
+                          : widget.onPressedWithPageId != null
+                              ? () {
+                                  final active_page =
+                                      widget.pages[_currentPage];
+
+                                  widget.onPressedWithPageId!(active_page);
+                                }
+                              : widget.onPressed ?? _animateToNextPage,
                       child: DefaultTextStyle(
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
