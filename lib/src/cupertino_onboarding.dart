@@ -50,6 +50,7 @@ class CupertinoOnboarding extends StatefulWidget {
     this.pageTransitionAnimationDuration = const Duration(milliseconds: 500),
     this.pageTransitionAnimationCurve = Curves.fastEaseInToSlowEaseOut,
     this.scrollPhysics = const BouncingScrollPhysics(),
+    this.showDotsIndicator = true,
     this.onPressed,
     this.onPressedWithPageId,
     this.onPressedOnLastPage,
@@ -113,6 +114,8 @@ class CupertinoOnboarding extends StatefulWidget {
   /// Defaults to [BouncingScrollPhysics].
   final ScrollPhysics scrollPhysics;
 
+  final bool showDotsIndicator;
+
   /// Invoked when the user taps on the bottom button.
   /// Usable only if [pages] length is greater than 1.
   ///
@@ -170,7 +173,7 @@ class _CupertinoOnboardingState extends State<CupertinoOnboarding> {
                 },
               ),
             ),
-            if (widget.pages.length > 1)
+            if (widget.showDotsIndicator && widget.pages.length > 1)
               DotsIndicator(
                 dotsCount: widget.pages.length,
                 position: _currentPageAsDouble,
