@@ -21,6 +21,7 @@ class CupertinoOnboardingPage extends StatelessWidget {
     this.titleToBodySpacing = _kTitleToBodySpacing,
     this.bodyToBottomSpacing = 0,
     this.titleFlex = 3,
+    this.isBottomButtonVisible = true,
     super.key,
   });
 
@@ -56,6 +57,9 @@ class CupertinoOnboardingPage extends StatelessWidget {
   ///
   /// Defaults to 0.
   final double bodyToBottomSpacing;
+
+  /// Determines if the bottom button is visible.
+  final bool isBottomButtonVisible;
 
   /// Flex value of the title.
   ///

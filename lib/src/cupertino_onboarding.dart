@@ -196,41 +196,42 @@ class _CupertinoOnboardingState extends State<CupertinoOnboarding> {
                 padding: widget.bottomButtonPadding,
                 child: Column(
                   children: [
-                    CupertinoButton(
-                      borderRadius: widget.bottomButtonBorderRadius ??
-                          _bottomButtonBorderRadius,
-                      color: widget.bottomButtonColor ??
-                          CupertinoTheme.of(context).primaryColor,
-                      padding: const EdgeInsets.all(16),
-                      onPressed: () {
-                        if (widget.onPressedWithPageId != null) {
-                          final active_page = widget.pages[_currentPage];
-                          widget.onPressedWithPageId!(active_page);
-                        }
-                        if (_currentPage == widget.pages.length - 1) {
-                          if (widget.onPressedOnLastPage != null) {
-                            widget.onPressedOnLastPage!();
+                    if (widget.pages[_currentPage].isBottomButtonVisible)
+                      CupertinoButton(
+                        borderRadius: widget.bottomButtonBorderRadius ??
+                            _bottomButtonBorderRadius,
+                        color: widget.bottomButtonColor ??
+                            CupertinoTheme.of(context).primaryColor,
+                        padding: const EdgeInsets.all(16),
+                        onPressed: () {
+                          if (widget.onPressedWithPageId != null) {
+                            final active_page = widget.pages[_currentPage];
+                            widget.onPressedWithPageId!(active_page);
                           }
-                        } else {
-                          widget.onPressed != null
-                              ? widget.onPressed!()
-                              : _animateToNextPage();
-                        }
-                      },
-                      child: DefaultTextStyle(
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                        child: Row(
-                          children: [
-                            const Spacer(),
-                            widget.bottomButtonChild,
-                            const Spacer(),
-                          ],
+                          if (_currentPage == widget.pages.length - 1) {
+                            if (widget.onPressedOnLastPage != null) {
+                              widget.onPressedOnLastPage!();
+                            }
+                          } else {
+                            widget.onPressed != null
+                                ? widget.onPressed!()
+                                : _animateToNextPage();
+                          }
+                        },
+                        child: DefaultTextStyle(
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                          child: Row(
+                            children: [
+                              const Spacer(),
+                              widget.bottomButtonChild,
+                              const Spacer(),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
