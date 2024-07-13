@@ -1,8 +1,7 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 // Project imports:
 import 'package:cupertino_onboarding/src/constants.dart';
+import 'package:flutter/cupertino.dart';
 
 const EdgeInsets _kOnboardingPagePadding = EdgeInsets.only(left: 35, right: 15);
 
@@ -14,6 +13,7 @@ const double _kTitleToBodySpacing = 55;
 class CupertinoOnboardingPage extends StatelessWidget {
   /// Default constructor of the [CupertinoOnboardingPage] widget.
   const CupertinoOnboardingPage({
+    required this.id,
     required this.title,
     required this.body,
     this.bodyPadding = _kOnboardingPagePadding,
@@ -32,6 +32,9 @@ class CupertinoOnboardingPage extends StatelessWidget {
   /// If another Text widget is provided, it will be
   /// defaultly styled to match the iOS 15 style onboarding.
   final Widget title;
+
+  // Unique identifier of the onboarding page.
+  final String id;
 
   /// Body of the onboarding.
   final Widget body;

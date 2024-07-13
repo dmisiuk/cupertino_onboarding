@@ -3,6 +3,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../cupertino_onboarding.dart';
+
 // Estimated from the iPhone Simulator running iOS 15
 final CupertinoDynamicColor _kBackgroundColor =
     CupertinoDynamicColor.withBrightness(
@@ -64,7 +66,7 @@ class CupertinoOnboarding extends StatefulWidget {
   ///
   /// Preferably, list of `CupertinoOnboardingPage`
   /// or `WhatsNewPage` widgets.
-  final List<Widget> pages;
+  final List<CupertinoOnboardingPage> pages;
 
   /// Background color of the onboarding screen.
   ///
@@ -123,7 +125,8 @@ class CupertinoOnboarding extends StatefulWidget {
   final VoidCallback? onPressed;
 
   /// Invoked when the user taps on the bottom button with sending Page
-  final Function(Widget)? onPressedWithPageId;
+  /// Don't use for navigationg lonly logging, analytics and other things
+  final Function(CupertinoOnboardingPage)? onPressedWithPageId;
 
   /// Invoked when the user taps on the bottom button on the last page.
   /// Must not be null to be active.
@@ -199,16 +202,21 @@ class _CupertinoOnboardingState extends State<CupertinoOnboarding> {
                       color: widget.bottomButtonColor ??
                           CupertinoTheme.of(context).primaryColor,
                       padding: const EdgeInsets.all(16),
-                      onPressed: _currentPage == widget.pages.length - 1
-                          ? widget.onPressedOnLastPage
-                          : widget.onPressedWithPageId != null
-                              ? () {
-                                  final active_page =
-                                      widget.pages[_currentPage];
-
-                                  widget.onPressedWithPageId!(active_page);
-                                }
-                              : widget.onPressed ?? _animateToNextPage,
+                      onPressed: () {
+                        if (widget.onPressedWithPageId != null) {
+                          final active_page = widget.pages[_currentPage];
+                          widget.onPressedWithPageId!(active_page);
+                        }
+                        if (_currentPage == widget.pages.length - 1) {
+                          if (widget.onPressedOnLastPage != null) {
+                            widget.onPressedOnLastPage!();
+                          }
+                        } else {
+                          widget.onPressed != null
+                              ? widget.onPressed!()
+                              : _animateToNextPage();
+                        }
+                      },
                       child: DefaultTextStyle(
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,

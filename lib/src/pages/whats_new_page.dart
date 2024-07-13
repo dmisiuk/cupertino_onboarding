@@ -1,8 +1,7 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 // Project imports:
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
+import 'package:flutter/cupertino.dart';
 
 const EdgeInsets _kOnboardingPagePadding = EdgeInsets.only(left: 35, right: 15);
 
@@ -87,6 +86,7 @@ class WhatsNewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoOnboardingPage(
+      id: 'whats_new',
       title: title,
       bodyPadding: bodyPadding,
       titleTopIndent: titleTopIndent,
