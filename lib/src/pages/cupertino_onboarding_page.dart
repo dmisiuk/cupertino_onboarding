@@ -11,6 +11,8 @@ const double _kTitleToBodySpacing = 55;
 
 /// Represents a swipeable page in the onboarding.
 class CupertinoOnboardingPage extends StatelessWidget {
+  final Function succcess;
+
   /// Default constructor of the [CupertinoOnboardingPage] widget.
   const CupertinoOnboardingPage({
     required this.id,
@@ -22,8 +24,11 @@ class CupertinoOnboardingPage extends StatelessWidget {
     this.bodyToBottomSpacing = 0,
     this.titleFlex = 3,
     this.isBottomButtonVisible = true,
+    this.succcess = _defaultSuccessFunction,
     super.key,
   });
+
+  static void _defaultSuccessFunction() {}
 
   /// Title of the onboarding.
   ///
