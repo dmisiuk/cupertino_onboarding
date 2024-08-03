@@ -285,11 +285,6 @@ class OnboardingCubit extends Cubit<int> {
   }
 
   void resetToFirstPage() {
-    _pageController.animateToPage(
-      0,
-      duration: Duration(milliseconds: 0),
-      curve: Curves.easeInOut,
-    );
     emit(0);
   }
 }
@@ -317,6 +312,7 @@ class CupertinoOnboarding extends StatelessWidget {
     this.bottomButtonColor,
     this.bottomButtonBorderRadius,
     this.bottomButtonPadding = const EdgeInsets.only(
+      top: 0,
       left: 22,
       right: 22,
       bottom: 60,
@@ -367,13 +363,13 @@ class CupertinoOnboarding extends StatelessWidget {
                 if (widgetAboveBottomButton != null)
                   widgetAboveBottomButton!
                 else
-                  const SizedBox(height: 15),
-                Center(
-                  child: Padding(
-                    padding: bottomButtonPadding,
-                    child: Column(
-                      children: [
-                        if (pages[currentPage].isBottomButtonVisible)
+                  const SizedBox(height: 12),
+                if (pages[currentPage].isBottomButtonVisible)
+                  Center(
+                    child: Padding(
+                      padding: bottomButtonPadding,
+                      child: Column(
+                        children: [
                           CupertinoButton(
                             borderRadius: bottomButtonBorderRadius ??
                                 BorderRadius.circular(15),
@@ -387,8 +383,8 @@ class CupertinoOnboarding extends StatelessWidget {
                               }
                               if (currentPage == pages.length - 1) {
                                 if (onPressedOnLastPage != null) {
-                                  onPressedOnLastPage!();
                                   onboardingCubit.resetToFirstPage();
+                                  onPressedOnLastPage!();
                                 }
                               } else {
                                 onPressed != null
@@ -411,10 +407,10 @@ class CupertinoOnboarding extends StatelessWidget {
                               ),
                             ),
                           ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

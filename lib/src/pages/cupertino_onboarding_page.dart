@@ -22,7 +22,7 @@ class CupertinoOnboardingPage extends StatelessWidget {
     this.titleTopIndent = _kTitleTopIndent,
     this.titleToBodySpacing = _kTitleToBodySpacing,
     this.bodyToBottomSpacing = 0,
-    this.titleFlex = 3,
+    this.titleFlex = 12,
     this.isBottomButtonVisible = true,
     this.succcess = _defaultSuccessFunction,
     super.key,
@@ -70,7 +70,7 @@ class CupertinoOnboardingPage extends StatelessWidget {
   ///
   /// Determines how much horizontal space the title takes.
   ///
-  /// Defaults to 3.
+  /// Defaults to 12.
   final int titleFlex;
 
   @override
